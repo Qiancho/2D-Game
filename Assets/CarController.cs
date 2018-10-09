@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour {
 
-    float speedForce =10f;
+    float speedForce =30f;
     float torqueForce = -200f;
     float driftFactorSlippy = 1;
     float driftFactorSticky = 0.9f;
@@ -34,12 +34,12 @@ public class CarController : MonoBehaviour {
         if(Input.GetButtonDown("Brake")){
             rb.AddForce( transform.up * -speedForce /2f);
         }
-        float tf = Mathf.Lerp(0, torqueForce, rb.velocity.magnitude / 2);
 
         rb.angularVelocity = Input.GetAxis("Horizontal") * torqueForce;
-        //rb.AddTorque(Input.GetAxis("Horizontal") * torqueForce);
 
-        //rb.velocity = ForwardVelocity();
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+        Application.Quit();
+    }
 	}
     Vector2 ForwardVelocity(){
         return transform.up * Vector2.Dot( GetComponent<Rigidbody2D>().velocity, transform.up);
